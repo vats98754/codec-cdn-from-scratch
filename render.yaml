@@ -34,7 +34,7 @@ services:
     healthCheckPath: /health
 
   # Static hosting for demo files
-  - type: static
+  - type: web
     name: codec-cdn-static
     buildCommand: |
       mkdir -p dist/examples
