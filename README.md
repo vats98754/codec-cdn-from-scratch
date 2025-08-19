@@ -1,35 +1,35 @@
-# 🎥 Custom Codec CDN Platform - Production Ready
+# Custom Codec CDN Platform - Production Ready
 
 > **Complete Rust + TypeScript implementation with real compression algorithms, comprehensive benchmarking, and production-ready CDN deployment**
 
 A high-performance custom compression platform featuring **production-quality algorithms** built from scratch in Rust, with a full-featured CDN interface and multiple hosting options for maximum accessibility.
 
-## 🌟 What's New in This Version
+## What's New in This Version
 
-### ✨ **Complete Rust Rewrite**
+### **Complete Rust Rewrite**
 - **Text Codec**: 64-bit precision arithmetic coding (replaced simple RLE)
 - **Image Codec**: Real 2D DCT transforms with perceptual quantization
 - **Bencode Codec**: Full BitTorrent-compatible serialization format
 - **Memory-safe**: Zero-cost abstractions with Rust's ownership system
 
-### ⚡ **Production Performance**
+### **Production Performance**
 - **Multi-threaded**: Parallel processing with Rayon
 - **Benchmarking**: Comprehensive performance analysis with Criterion
 - **Real-world testing**: Handles large files with optimized algorithms
 - **CLI Tools**: Professional command-line interfaces for all codecs
 
-### 🚀 **Easy Deployment & Hosting**
+### **Easy Deployment & Hosting**
 - **Free hosting**: Multiple free deployment options (Render, Railway, Vercel)
 - **One-click deploy**: Pre-configured for instant deployment
 - **CDN-ready**: Global content distribution and caching
 - **Progressive Web App**: Mobile-optimized with offline support
 
-## 🎯 Quick Start
+## Quick Start
 
-### 🌐 **Try It Online** (Fastest Way)
+### **Try It Online** (Fastest Way)
 Visit our live demo: **[codec-platform.onrender.com](https://codec-cdn-from-scratch.onrender.com/static/)**
 
-### 💻 **Local Development**
+### **Local Development**
 ```bash
 # Clone and setup
 git clone https://github.com/vats98754/codec-cdn-from-scratch.git
@@ -45,7 +45,7 @@ cargo build --release
 npm run dev
 ```
 
-### 🚀 **Deploy Your Own** (Free)
+### **Deploy Your Own** (Free)
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/vats98754/codec-cdn-from-scratch)
 
 **Other free hosting options:**
@@ -56,7 +56,7 @@ npm run dev
 
 *See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed hosting guides*
 
-## 🏗️ Architecture & Performance
+## Architecture & Performance
 
 ### **Codec Implementations**
 
@@ -71,21 +71,21 @@ npm run dev
 ```bash
 # Text Compression Benchmarks (6,201 bytes input)
 ./target/release/simple-tcf encode large.txt test.tcf
-# Result: 6,201 bytes → 568 bytes (10.92:1 ratio) in 0.001s ✅
+# Result: 6,201 bytes → 568 bytes (10.92:1 ratio) in 0.001s
 
 # Bencode Efficiency (Complex torrent file)
 ./target/release/bencode-cli create-torrent movie.mkv torrent.bencode
-# Result: Perfect BitTorrent compatibility with 94% efficiency ✅
+# Result: Perfect BitTorrent compatibility with 94% efficiency
 ```
 
-## 🎮 Interactive Features
+## Interactive Features
 
 ### **Web Interface Highlights**
-- 🖱️ **Drag & Drop**: Upload files by dragging them anywhere
-- 📊 **Real-time Stats**: Live compression ratios and performance metrics
-- 🔄 **Round-trip Testing**: Encode → Decode → Verify integrity  
-- 📱 **Mobile Optimized**: Full functionality on all devices
-- 🎯 **One-Click Demos**: Pre-loaded examples for instant testing
+- **Drag & Drop**: Upload files by dragging them anywhere
+- **Real-time Stats**: Live compression ratios and performance metrics
+- **Round-trip Testing**: Encode → Decode → Verify integrity  
+- **Mobile Optimized**: Full functionality on all devices
+- **One-Click Demos**: Pre-loaded examples for instant testing
 
 ### **Command-Line Tools**
 ```bash
@@ -139,7 +139,7 @@ cargo bench codec_comparison
 - **Real-world Data**: Performance with actual files
 - **Scaling Tests**: Performance vs. file size
 
-## 🎨 User Experience
+## User Experience
 
 ### **Intuitive Interface**
 - **Visual Feedback**: Progress bars, statistics, and real-time updates
@@ -154,7 +154,7 @@ cargo bench codec_comparison
 - **Code Examples**: View implementation details and algorithms
 - **Technical Documentation**: Learn the theory behind each codec
 
-## 🔧 Technology Stack
+## Technology Stack
 
 ### **Backend (Rust)**
 - **Performance**: Memory-safe systems programming
@@ -197,13 +197,13 @@ cargo bench codec_comparison
 - **Performance Testing**: Benchmark different approaches
 - **Open Source**: Contribute to compression research
 
-## 🤝 Contributing & Community
+## Contributing & Community
 
 ### **Getting Involved**
-- 🐛 **Report Issues**: Found a bug? Let us know!
-- 💡 **Feature Requests**: Suggest new codecs or improvements
-- 🔧 **Pull Requests**: Contribute code improvements
-- 📖 **Documentation**: Help improve guides and examples
+- **Report Issues**: Found a bug? Let us know!
+- **Feature Requests**: Suggest new codecs or improvements
+- **Pull Requests**: Contribute code improvements
+- **Documentation**: Help improve guides and examples
 
 ### **Development Workflow**
 ```bash
@@ -223,14 +223,14 @@ npm test
 npm run dev
 ```
 
-## 📚 Documentation
+## Documentation
 
 - **[Deployment Guide](DEPLOYMENT.md)**: Complete hosting and deployment instructions
 - **[Rust Implementation](RUST_README.md)**: Technical details of Rust codecs  
 - **[API Reference](docs/)**: Complete REST API documentation
 - **[Performance Guide](benches/)**: Benchmarking and optimization
 
-## 🎯 What Makes This Special
+## What Makes This Special
 
 ### **Production Quality**
 - ✅ Real compression algorithms (not demos)
@@ -259,13 +259,13 @@ npm run dev
 
 ---
 
-## 🚀 **Ready to explore the future of custom compression?**
+## **Ready to explore the future of custom compression?**
 
 **[🌐 Try the Live Demo](https://codec-cdn-from-scratch.onrender.com/static/)** | **[📖 Read the Docs](docs/)** | **[🚀 Deploy Your Own](DEPLOYMENT.md)**
 
 ---
 
-*Built with ❤️ using Rust, TypeScript, and modern web technologies. Open source and ready for production use.*
+*Built using Rust, TypeScript, and modern web technologies. Open source and ready for production use.*
 - I-frame and P-frame encoding
 - Motion compensation
 - Configurable GOP structure
@@ -279,7 +279,7 @@ npm run dev
 - **Streaming support** with range requests
 - **Compression statistics** and analytics
 
-## 🛠️ Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
 
@@ -316,7 +316,7 @@ docker build -t codec-cdn .
 docker run -p 3000:3000 codec-cdn
 ```
 
-## 🎯 Quick Start
+## Quick Start
 
 ### Web Interface
 
@@ -408,7 +408,7 @@ curl -X POST -F "file=@video.mp4" -F "quality=85" -F "gopSize=30" \
 | Live Action | 180 MB | 35 MB | 5.1:1 | +25% |
 | Screen Recording | 95 MB | 12 MB | 7.9:1 | +26% |
 
-## 🏗️ Architecture
+## Architecture
 
 ### Project Structure
 ```
@@ -432,7 +432,7 @@ codec-cdn-from-scratch/
 - **Frontend**: HTML5 + CSS3 + Vanilla JavaScript
 - **Deployment**: Render (free tier)
 
-## 🌐 Deployment on Render
+## Deployment on Render
 
 This application is configured for easy deployment on Render's free tier:
 
@@ -455,7 +455,7 @@ This application is configured for easy deployment on Render's free tier:
 - `NODE_ENV=production`
 - `PORT=10000` (Render's default)
 
-## 📚 Documentation
+## Documentation
 
 ### Codec Documentation
 - [Text Codec (TCF) Guide](docs/text-codec-readme.md) - Complete TCF format specification and usage
@@ -465,7 +465,7 @@ This application is configured for easy deployment on Render's free tier:
 ### API Documentation
 Visit `/api/docs` endpoint for interactive API documentation with examples.
 
-## 🎨 Web Interface Features
+## Web Interface Features
 
 - **Drag & Drop Upload**: Intuitive file handling
 - **Real-time Progress**: Visual feedback during processing
@@ -474,7 +474,7 @@ Visit `/api/docs` endpoint for interactive API documentation with examples.
 - **Responsive Design**: Works on desktop and mobile
 - **Error Handling**: Comprehensive error messages
 
-## 🔧 Development
+## Development
 
 ### Project Commands
 ```bash
@@ -492,7 +492,7 @@ npm run clean      # Clean build directory
 4. Add comprehensive tests
 5. Update documentation
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Areas for improvement:
 
@@ -514,11 +514,11 @@ Contributions are welcome! Areas for improvement:
 - **GPU acceleration**
 - **Caching strategies**
 
-## 📄 License
+## License
 
 This project is released under the MIT License. See [LICENSE](LICENSE) file for details.
 
-## 🎯 Roadmap
+## Roadmap
 
 ### Phase 1 ✅ (Completed)
 - [x] Custom text codec (TCF)
@@ -540,7 +540,7 @@ This project is released under the MIT License. See [LICENSE](LICENSE) file for 
 - [ ] Advanced compression algorithms
 - [ ] Machine learning optimization
 
-## 🏆 Achievements
+## Achievements
 
 - **Three custom codecs** implemented from scratch
 - **Full-stack web application** with modern UI
@@ -549,7 +549,7 @@ This project is released under the MIT License. See [LICENSE](LICENSE) file for 
 - **Educational documentation** for each component
 - **Performance benchmarks** against industry standards
 
-## 📞 Support
+## Support
 
 - **Issues**: [GitHub Issues](https://github.com/vats98754/codec-cdn-from-scratch/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/vats98754/codec-cdn-from-scratch/discussions)
@@ -557,4 +557,4 @@ This project is released under the MIT License. See [LICENSE](LICENSE) file for 
 
 ---
 
-Made with ❤️ by [@vats98754](https://github.com/vats98754) | [Live Demo](https://codec-cdn-from-scratch.onrender.com/static/) | [API Docs](https://codec-cdn-from-scratch.onrender.com/api/docs)
+Made by [@vats98754](https://github.com/vats98754) | [Live Demo](https://codec-cdn-from-scratch.onrender.com/static/) | [API Docs](https://codec-cdn-from-scratch.onrender.com/api/docs)
