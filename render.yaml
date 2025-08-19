@@ -43,10 +43,6 @@ services:
       echo 'The quick brown fox jumps over the lazy dog.' > dist/examples/sample.txt
       echo 'function fibonacci(n) { return n <= 1 ? n : fibonacci(n-1) + fibonacci(n-2); }' > dist/examples/sample.js
     staticPublishPath: dist
-    routes:
-      - type: rewrite
-        source: /examples/*
-        destination: /examples/*
     headers:
       - name: Cache-Control
         value: public, max-age=3600
