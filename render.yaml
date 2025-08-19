@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: codec-cdn-from-scratch
+    env: node
+    plan: starter
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    healthCheckPath: /health
+    disk:
+      name: data
+      mountPath: /tmp
+      sizeGB: 1
