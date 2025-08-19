@@ -180,8 +180,9 @@ export class ImageCodec {
     const blocks: ICFBlock[] = [];
     const blockSize = this.BLOCK_SIZE;
     
-    // Calculate quantization factor based on quality
-    const qFactor = quality < 50 ? (50 / quality) : (2 - quality / 50);
+    // Calculate quantization factor based on quality (fixed formula)
+    // Higher quality should mean less quantization (higher qFactor)
+    const qFactor = quality < 50 ? (quality / 10) : (quality / 10);
     
     for (let y = 0; y < height; y += blockSize) {
       for (let x = 0; x < width; x += blockSize) {
@@ -217,7 +218,8 @@ export class ImageCodec {
    */
   private static decompressBlocks(blocks: ICFBlock[], width: number, height: number, quality: number): Float32Array {
     const ycocgData = new Float32Array(width * height * 3);
-    const qFactor = quality < 50 ? (50 / quality) : (2 - quality / 50);
+    // Use same quality factor calculation as encoding
+    const qFactor = quality < 50 ? (quality / 10) : (quality / 10);
     
     let blockIndex = 0;
     for (let y = 0; y < height; y += this.BLOCK_SIZE) {
