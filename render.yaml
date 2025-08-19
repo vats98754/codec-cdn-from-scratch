@@ -1,0 +1,70 @@
+services:
+  - type: web
+    name: codec-cdn-from-scratch
+    env: node
+    plan: starter
+    buildCommand: |
+      # Install Rust
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+      source $HOME/.cargo/env
+      
+      # Build Rust binaries
+      cargo build --release
+      
+      # Install Node.js dependencies and build
+      npm ci && npm run build
+      
+      # Create necessary directories
+      mkdir -p uploads cache static/demos
+      
+      # Copy Rust binaries to accessible location
+      cp target/release/simple-tcf static/demos/
+      cp target/release/bencode-cli static/demos/
+      cp target/release/tcf-cli static/demos/
+      cp target/release/icf-cli static/demos/
+      
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: RUST_LOG
+        value: info
+    healthCheckPath: /health
+    disk:
+      name: data
+      mountPath: /tmp
+      sizeGB: 2
+    routes:
+      - source: /
+        destination: /
+      - source: /api/*
+        destination: /api/*
+      - source: /static/*
+        destination: /static/*
+    headers:
+      - name: X-Content-Type-Options
+        value: nosniff
+      - name: X-Frame-Options
+        value: DENY
+      - name: X-XSS-Protection
+        value: 1; mode=block
+
+  # Static file hosting for demo files
+  - type: static
+    name: codec-cdn-static
+    buildCommand: |
+      mkdir -p dist/examples
+      echo '{"text": "Hello, World!", "numbers": [1,2,3], "nested": {"key": "value"}}' > dist/examples/sample.json
+      echo 'The quick brown fox jumps over the lazy dog.' > dist/examples/sample.txt
+      echo 'function fibonacci(n) { return n <= 1 ? n : fibonacci(n-1) + fibonacci(n-2); }' > dist/examples/sample.js
+    staticPublishPath: dist
+    routes:
+      - source: /examples/*
+        destination: /examples/*
+    headers:
+      - name: Cache-Control
+        value: public, max-age=3600
+      - name: Access-Control-Allow-Origin
+        value: "*"

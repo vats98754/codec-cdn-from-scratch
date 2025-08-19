@@ -1,0 +1,77 @@
+[package]
+name = "codec-cdn-rust"
+version = "1.0.0"
+edition = "2021"
+authors = ["vats98754"]
+description = "High-performance custom codec and CDN platform with text, image, and video compression"
+license = "MIT"
+repository = "https://github.com/vats98754/codec-cdn-from-scratch"
+
+[[bin]]
+name = "tcf-cli"
+path = "src/bin/tcf_cli.rs"
+
+[[bin]]
+name = "icf-cli"
+path = "src/bin/icf_cli.rs"
+
+[[bin]]
+name = "simple-tcf"
+path = "src/bin/simple_tcf.rs"
+
+[[bin]]
+name = "bencode-cli"
+path = "src/bin/bencode_cli.rs"
+
+[dependencies]
+# Async runtime and web framework
+tokio = { version = "1.0", features = ["full"] }
+warp = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Image processing
+image = "0.24"
+
+# Compression and crypto
+flate2 = "1.0"
+sha2 = "0.10"
+crc32fast = "1.0"
+
+# Math and numerics
+ndarray = "0.15"
+
+# CLI and utilities
+clap = { version = "4.0", features = ["derive"] }
+indicatif = "0.17"
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Benchmarking
+criterion = { version = "0.5", features = ["html_reports"] }
+
+# Parallel processing
+rayon = "1.0"
+
+# Memory mapping for large files
+memmap2 = "0.9"
+
+# Base64 encoding for binary data
+base64 = "0.21"
+
+[[bench]]
+name = "compression_benchmarks"
+harness = false
+
+[dev-dependencies]
+tempfile = "3.0"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[profile.bench]
+debug = true
+
+
