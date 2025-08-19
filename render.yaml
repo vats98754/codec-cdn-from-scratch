@@ -36,6 +36,7 @@ services:
   # Static hosting for demo files
   - type: web
     name: codec-cdn-static
+    runtime: static
     buildCommand: |
       mkdir -p dist/examples
       echo '{"text": "Hello, World!", "numbers": [1,2,3], "nested": {"key": "value"}}' > dist/examples/sample.json
