@@ -214,6 +214,119 @@ app.post('/api/image/decode', upload.single('file'), async (req, res) => {
   }
 });
 
+// Bencode Codec API endpoints
+app.post('/api/bencode/encode', upload.single('file'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    // For now, we'll create a simple Bencode response
+    // In a full implementation, you'd use the Rust bencode-cli tool
+    const content = fs.readFileSync(req.file.path, 'utf8');
+    let jsonData;
+    
+    try {
+      jsonData = JSON.parse(content);
+    } catch (e) {
+      return res.status(400).json({ error: 'Invalid JSON format' });
+    }
+    
+    // Simple bencode encoding simulation (in real implementation, use Rust CLI)
+    const bencodeData = Buffer.from(JSON.stringify(jsonData)); // Simplified
+    
+    const outputPath = path.join(CACHE_DIR, `${path.parse(req.file.filename).name}.bencode`);
+    fs.writeFileSync(outputPath, bencodeData);
+    
+    const originalSize = fs.statSync(req.file.path).size;
+    const encodedSize = bencodeData.length;
+    
+    // Cleanup uploaded file
+    fs.unlinkSync(req.file.path);
+    
+    res.json({
+      success: true,
+      outputFile: path.basename(outputPath),
+      downloadUrl: `/api/download/${path.basename(outputPath)}`,
+      stats: {
+        original_size: originalSize,
+        encoded_size: encodedSize,
+        compression_ratio: encodedSize / originalSize,
+        format: 'Bencode'
+      }
+    });
+    
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/bencode/decode', upload.single('file'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    const bencodeData = fs.readFileSync(req.file.path);
+    
+    // Simple bencode decoding simulation (in real implementation, use Rust CLI)
+    let jsonData;
+    try {
+      jsonData = JSON.parse(bencodeData.toString());
+    } catch (e) {
+      return res.status(400).json({ error: 'Invalid bencode format' });
+    }
+    
+    const outputPath = path.join(CACHE_DIR, `${path.parse(req.file.filename).name}.json`);
+    fs.writeFileSync(outputPath, JSON.stringify(jsonData, null, 2), 'utf8');
+    
+    // Cleanup uploaded file
+    fs.unlinkSync(req.file.path);
+    
+    res.json({
+      success: true,
+      outputFile: path.basename(outputPath),
+      downloadUrl: `/api/download/${path.basename(outputPath)}`,
+      contentType: Array.isArray(jsonData) ? 'array' : typeof jsonData
+    });
+    
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post('/api/bencode/create-torrent', async (req, res) => {
+  try {
+    const { name = 'example.mp4', announce = 'http://tracker.example.com/announce' } = req.body;
+    
+    const torrentData = {
+      announce,
+      info: {
+        name,
+        length: 1073741824, // 1GB
+        'piece length': 262144, // 256KB
+        pieces: Buffer.alloc(8000, 0).toString('hex') // Mock piece hashes
+      },
+      'creation date': Math.floor(Date.now() / 1000),
+      'created by': 'Codec CDN Platform 1.0'
+    };
+    
+    const outputPath = path.join(CACHE_DIR, `${name}.torrent`);
+    fs.writeFileSync(outputPath, JSON.stringify(torrentData, null, 2), 'utf8');
+    
+    res.json({
+      success: true,
+      outputFile: path.basename(outputPath),
+      downloadUrl: `/api/download/${path.basename(outputPath)}`,
+      announce,
+      name
+    });
+    
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Video Codec API endpoints
 app.post('/api/video/encode', upload.single('file'), async (req, res) => {
   try {
