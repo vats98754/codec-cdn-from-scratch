@@ -1,8 +1,9 @@
 services:
+  # Node + Rust service
   - type: web
     name: codec-cdn-from-scratch
     env: node
-    plan: starter
+    plan: free
     buildCommand: |
       # Install Rust
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
@@ -22,7 +23,6 @@ services:
       cp target/release/bencode-cli static/demos/
       cp target/release/tcf-cli static/demos/
       cp target/release/icf-cli static/demos/
-      
     startCommand: npm start
     envVars:
       - key: NODE_ENV
@@ -32,27 +32,9 @@ services:
       - key: RUST_LOG
         value: info
     healthCheckPath: /health
-    disk:
-      name: data
-      mountPath: /tmp
-      sizeGB: 2
-    routes:
-      - source: /
-        destination: /
-      - source: /api/*
-        destination: /api/*
-      - source: /static/*
-        destination: /static/*
-    headers:
-      - name: X-Content-Type-Options
-        value: nosniff
-      - name: X-Frame-Options
-        value: DENY
-      - name: X-XSS-Protection
-        value: 1; mode=block
 
-  # Static file hosting for demo files
-  - type: web
+  # Static hosting for demo files
+  - type: static
     name: codec-cdn-static
     buildCommand: |
       mkdir -p dist/examples
@@ -61,7 +43,8 @@ services:
       echo 'function fibonacci(n) { return n <= 1 ? n : fibonacci(n-1) + fibonacci(n-2); }' > dist/examples/sample.js
     staticPublishPath: dist
     routes:
-      - source: /examples/*
+      - type: rewrite
+        source: /examples/*
         destination: /examples/*
     headers:
       - name: Cache-Control
