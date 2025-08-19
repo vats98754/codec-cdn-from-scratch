@@ -14,3 +14,7 @@ Thumbs.db
 *.temp
 uploads/
 cache/
+
+# Added by cargo
+
+/target
