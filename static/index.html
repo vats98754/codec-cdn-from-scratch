@@ -3,8 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Codec CDN - Web Player</title>
+    <title>CodecAI - Professional Compression Platform</title>
     <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --background-dark: #0f172a;
+            --background-light: #f8fafc;
+            --surface-dark: #1e293b;
+            --surface-light: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #f8fafc;
+            --border-color: #e2e8f0;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,77 +32,208 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--background-dark) 0%, #1e1b4b 50%, var(--primary-dark) 100%);
             min-height: 100vh;
-            color: #333;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🤖";
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--accent-color);
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 6rem 2rem 2rem;
         }
         
-        header {
+        /* Hero Section */
+        .hero {
             text-align: center;
-            color: white;
-            margin-bottom: 40px;
+            color: var(--text-light);
+            margin-bottom: 4rem;
+            padding: 3rem 0;
         }
         
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, var(--accent-color) 50%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
         }
         
-        .subtitle {
-            font-size: 1.2rem;
+        .hero .subtitle {
+            font-size: 1.25rem;
             opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.7;
         }
         
+        /* Card Styles */
         .card {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 20px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
+            background: var(--surface-light);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
         }
         
         .codec-section {
-            margin-bottom: 40px;
+            margin-bottom: 2rem;
         }
         
         .codec-section h2 {
-            color: #667eea;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .codec-section h2::before {
+            font-size: 1.75rem;
         }
         
+        /* Upload Area */
         .upload-area {
-            border: 2px dashed #ddd;
-            border-radius: 10px;
-            padding: 40px;
+            border: 2px dashed var(--border-color);
+            border-radius: 0.75rem;
+            padding: 3rem 2rem;
             text-align: center;
-            background: #f9f9f9;
+            background: var(--background-light);
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .upload-area:hover::before {
+            opacity: 0.05;
         }
         
         .upload-area:hover {
-            border-color: #667eea;
-            background: #f0f4ff;
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.05);
+            transform: translateY(-2px);
         }
         
         .upload-area.dragover {
-            border-color: #667eea;
-            background: #e3f2fd;
+            border-color: var(--accent-color);
+            background: rgba(6, 182, 212, 0.1);
             transform: scale(1.02);
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1);
+        }
+
+        .upload-area.file-selected {
+            border-color: var(--success-color);
+            background: rgba(16, 185, 129, 0.05);
         }
         
         .file-input {
@@ -91,245 +242,566 @@
         
         .upload-icon {
             font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 15px;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .upload-icon.success {
+            color: var(--success-color);
+        }
+
+        .file-size, .file-type {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
         }
         
+        /* Controls */
         .controls {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 1rem;
+            margin-top: 1.5rem;
             flex-wrap: wrap;
+            align-items: end;
         }
         
         .control-group {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 0.5rem;
+            min-width: 120px;
         }
         
         label {
             font-weight: 600;
-            color: #555;
+            color: var(--text-primary);
+            font-size: 0.9rem;
         }
         
-        input, select, button {
-            padding: 10px 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
+        input, select {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
+            background: var(--surface-light);
+            color: var(--text-primary);
         }
-        
+
         input:focus, select:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
         }
         
+        /* Buttons */
         .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            padding: 0.75rem 1.5rem;
             border: none;
-            cursor: pointer;
+            border-radius: 0.5rem;
+            font-size: 1rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
         
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-        
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+
+        .btn:active {
+            transform: translateY(0);
         }
         
         .btn-secondary {
-            background: #6c757d;
+            background: var(--text-secondary);
+            color: white;
         }
         
+        .btn-secondary:hover {
+            background: var(--text-primary);
+        }
+
+        .btn-download {
+            background: var(--success-color);
+        }
+
+        .btn-download:hover {
+            background: #059669;
+        }
+        
+        /* Progress Bars */
         .progress {
             width: 100%;
-            height: 20px;
-            background: #f0f0f0;
-            border-radius: 10px;
+            height: 0.5rem;
+            background: var(--border-color);
+            border-radius: 0.25rem;
             overflow: hidden;
-            margin: 10px 0;
+            margin: 1rem 0;
             display: none;
         }
         
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
             width: 0%;
             transition: width 0.3s ease;
+            border-radius: 0.25rem;
         }
         
+        /* Results */
         .result {
-            margin-top: 20px;
-            padding: 20px;
-            background: #e8f5e8;
-            border: 1px solid #4caf50;
-            border-radius: 8px;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
             display: none;
+            border-left: 4px solid var(--success-color);
+        }
+
+        .result.success {
+            background: rgba(16, 185, 129, 0.1);
+            border-left-color: var(--success-color);
         }
         
-        .error {
-            background: #ffebee;
-            border-color: #f44336;
-            color: #c62828;
+        .result.error {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: var(--error-color);
+            color: var(--error-color);
+        }
+
+        .result-success h4 {
+            color: var(--success-color);
+            margin-bottom: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 0.5rem;
+        }
+
+        .stat-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: var(--text-primary);
         }
         
+        /* Performance Dashboard */
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .perf-card {
+            background: var(--background-light);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .perf-card:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+        
+        .perf-card h3 {
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .perf-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Examples Grid */
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .example-card {
+            background: var(--background-light);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .example-card:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+        
+        .example-card h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        
+        .example-card .btn {
+            margin: 0.25rem;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+        }
+        
+        /* File List */
         .file-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
         
         .file-item {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
+            background: var(--background-light);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
         }
         
         .file-item h4 {
-            margin-bottom: 10px;
-            color: #495057;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            font-weight: 600;
         }
         
         .file-stats {
             font-size: 0.9rem;
-            color: #6c757d;
-            margin: 5px 0;
+            color: var(--text-secondary);
+            margin: 0.25rem 0;
         }
-        
-        .download-btn {
-            width: 100%;
-            margin-top: 10px;
-            padding: 8px;
-            font-size: 0.9rem;
-        }
-        
-        .performance-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .perf-card {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 10px;
-            padding: 20px;
+
+        .no-files {
             text-align: center;
+            color: var(--text-secondary);
+            padding: 2rem;
+            font-style: italic;
         }
         
-        .perf-card h3 {
-            margin-bottom: 10px;
-            color: #495057;
+        /* Notifications */
+        .notification-container {
+            position: fixed;
+            top: 6rem;
+            right: 1rem;
+            z-index: 1000;
+            max-width: 400px;
         }
-        
-        .examples-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+
+        .notification {
+            background: var(--surface-light);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
         }
-        
-        .example-card {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 10px;
-            padding: 20px;
+
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .notification-success {
+            border-left: 4px solid var(--success-color);
+        }
+
+        .notification-error {
+            border-left: 4px solid var(--error-color);
+        }
+
+        .notification-warning {
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .notification-info {
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .notification-icon {
+            font-size: 1.25rem;
+        }
+
+        .notification-message {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-close:hover {
+            color: var(--text-primary);
+        }
+
+        /* Loading and Test Results */
+        .loading {
             text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-style: italic;
         }
-        
-        .example-card h3 {
-            margin-bottom: 15px;
-            color: #495057;
+
+        .test-results {
+            background: var(--background-light);
+            border-radius: 0.5rem;
+            padding: 1rem;
         }
-        
-        .example-card button {
-            margin: 5px;
-            font-size: 0.9rem;
-            padding: 8px 12px;
+
+        .test-results h4 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
-        
-        .stats-display {
-            background: #e9ecef;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-            text-align: left;
-        }
-        
-        .stats-row {
+
+        .test-row {
             display: flex;
             justify-content: space-between;
-            margin: 5px 0;
+            align-items: center;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            background: var(--surface-light);
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
         }
-        
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.8rem;
+
+        .speed-result, .compression-result {
             font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .error-badge {
+            background: var(--error-color);
             color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+
+        .analysis-results {
+            background: var(--background-light);
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .analysis-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .analysis-section h5 {
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            background: var(--surface-light);
+            border-radius: 0.25rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .info-value {
+            font-weight: 500;
+            color: var(--text-primary);
         }
         
-        .badge-success { background: #28a745; }
-        .badge-info { background: #17a2b8; }
-        .badge-warning { background: #ffc107; color: #212529; }
-        .badge-danger { background: #dc3545; }
+        /* Responsive Design */
+        @media (max-width: 768px) {
             .container {
-                padding: 10px;
+                padding: 6rem 1rem 2rem;
             }
             
-            h1 {
-                font-size: 2rem;
+            .hero h1 {
+                font-size: 2.5rem;
             }
-            
-            .card {
-                padding: 20px;
+
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .nav-content {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                display: none;
             }
             
             .controls {
                 flex-direction: column;
+                align-items: stretch;
+            }
+
+            .control-group {
+                min-width: auto;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .performance-grid,
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .notification-container {
+                right: 0.5rem;
+                left: 0.5rem;
+                max-width: none;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --surface-light: #1e293b;
+                --background-light: #0f172a;
+                --text-primary: #f8fafc;
+                --text-secondary: #94a3b8;
+                --border-color: #334155;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .card {
+                border: 2px solid var(--text-primary);
+                box-shadow: none;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="logo">CodecAI</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#performance">Performance</a></li>
+                <li><a href="#files">Files</a></li>
+                <li><a href="/health">API Health</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="container">
-        <header>
-            <h1>🎥 Custom Codec CDN</h1>
-            <p class="subtitle">Advanced Text, Image & Video Compression Platform</p>
+        <!-- Hero Section -->
+        <header class="hero">
+            <h1>Next-Generation AI Compression Platform</h1>
+            <p class="subtitle">
+                Transform your data with cutting-edge codec technology. 
+                Compress text, images, and videos with unprecedented efficiency.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-value">95%</span>
+                    <span class="stat-label">Compression Ratio</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">10x</span>
+                    <span class="stat-label">Faster Processing</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">4</span>
+                    <span class="stat-label">Advanced Codecs</span>
+                </div>
+            </div>
         </header>
 
         <!-- Text Codec Section -->
-        <div class="card">
+        <div class="card" id="features">
             <div class="codec-section">
-                <h2>📝 Text Codec (TCF)</h2>
-                <div class="upload-area" onclick="document.getElementById('textFile').click()" 
-                     ondrop="handleDrop(event, 'text')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                <h2><span style="font-size: 1.75rem;">📝</span> Text Codec (TCF)</h2>
+                <div class="upload-area" data-type="text">
                     <div class="upload-icon">📄</div>
                     <p><strong>Drop text files here or click to upload</strong></p>
                     <p>Supports .txt files up to 10MB</p>
                 </div>
-                <input type="file" id="textFile" class="file-input" accept=".txt" onchange="handleFileSelect(event, 'text')">
+                <input type="file" id="textFile" class="file-input" accept=".txt,.tcf">
                 
                 <div class="controls">
-                    <button class="btn" onclick="encodeText()">Encode to TCF</button>
-                    <button class="btn" onclick="decodeText()">Decode from TCF</button>
+                    <button class="btn" id="encodeText">Encode to TCF</button>
+                    <button class="btn btn-secondary" id="decodeText">Decode from TCF</button>
                 </div>
                 
                 <div class="progress" id="textProgress">
@@ -342,22 +814,21 @@
         <!-- Image Codec Section -->
         <div class="card">
             <div class="codec-section">
-                <h2>🖼️ Image Codec (ICF)</h2>
-                <div class="upload-area" onclick="document.getElementById('imageFile').click()" 
-                     ondrop="handleDrop(event, 'image')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                <h2><span style="font-size: 1.75rem;">🖼️</span> Image Codec (ICF)</h2>
+                <div class="upload-area" data-type="image">
                     <div class="upload-icon">🖼️</div>
                     <p><strong>Drop image files here or click to upload</strong></p>
                     <p>Supports .jpg, .png, .webp files up to 50MB</p>
                 </div>
-                <input type="file" id="imageFile" class="file-input" accept=".jpg,.jpeg,.png,.webp" onchange="handleFileSelect(event, 'image')">
+                <input type="file" id="imageFile" class="file-input" accept=".jpg,.jpeg,.png,.webp,.icf">
                 
                 <div class="controls">
                     <div class="control-group">
                         <label for="imageQuality">Quality (1-100)</label>
                         <input type="number" id="imageQuality" min="1" max="100" value="85">
                     </div>
-                    <button class="btn" onclick="encodeImage()">Encode to ICF</button>
-                    <button class="btn" onclick="decodeImage()">Decode from ICF</button>
+                    <button class="btn" id="encodeImage">Encode to ICF</button>
+                    <button class="btn btn-secondary" id="decodeImage">Decode from ICF</button>
                 </div>
                 
                 <div class="progress" id="imageProgress">
@@ -370,14 +841,13 @@
         <!-- Video Codec Section -->
         <div class="card">
             <div class="codec-section">
-                <h2>🎬 Video Codec (VCF)</h2>
-                <div class="upload-area" onclick="document.getElementById('videoFile').click()" 
-                     ondrop="handleDrop(event, 'video')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                <h2><span style="font-size: 1.75rem;">🎬</span> Video Codec (VCF)</h2>
+                <div class="upload-area" data-type="video">
                     <div class="upload-icon">🎬</div>
                     <p><strong>Drop video files here or click to upload</strong></p>
                     <p>Supports .mp4, .avi, .mkv files up to 100MB</p>
                 </div>
-                <input type="file" id="videoFile" class="file-input" accept=".mp4,.avi,.mkv,.mov" onchange="handleFileSelect(event, 'video')">
+                <input type="file" id="videoFile" class="file-input" accept=".mp4,.avi,.mkv,.mov,.vcf">
                 
                 <div class="controls">
                     <div class="control-group">
@@ -390,10 +860,10 @@
                     </div>
                     <div class="control-group">
                         <label for="videoGop">GOP Size</label>
-                        <input type="number" id="videoGop" min="5" max="120" value="30">
+                        <input type="number" id="videoGop" min="1" max="120" value="30">
                     </div>
-                    <button class="btn" onclick="encodeVideo()">Encode to VCF</button>
-                    <button class="btn" onclick="decodeVideo()">Decode from VCF</button>
+                    <button class="btn" id="encodeVideo">Encode to VCF</button>
+                    <button class="btn btn-secondary" id="decodeVideo">Decode from VCF</button>
                 </div>
                 
                 <div class="progress" id="videoProgress">
@@ -406,19 +876,18 @@
         <!-- Bencode Codec Section -->
         <div class="card">
             <div class="codec-section">
-                <h2>📦 Bencode Codec</h2>
-                <div class="upload-area" onclick="document.getElementById('bencodeFile').click()" 
-                     ondrop="handleDrop(event, 'bencode')" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)">
+                <h2><span style="font-size: 1.75rem;">📦</span> Bencode Codec</h2>
+                <div class="upload-area" data-type="bencode">
                     <div class="upload-icon">📦</div>
                     <p><strong>Drop JSON or Bencode files here or click to upload</strong></p>
                     <p>Supports .json, .bencode, .torrent files up to 10MB</p>
                 </div>
-                <input type="file" id="bencodeFile" class="file-input" accept=".json,.bencode,.torrent" onchange="handleFileSelect(event, 'bencode')">
+                <input type="file" id="bencodeFile" class="file-input" accept=".json,.bencode,.torrent">
                 
                 <div class="controls">
-                    <button class="btn" onclick="encodeBencode()">Encode to Bencode</button>
-                    <button class="btn" onclick="decodeBencode()">Decode from Bencode</button>
-                    <button class="btn btn-secondary" onclick="createTorrent()">Create Sample Torrent</button>
+                    <button class="btn" id="encodeBencode">Encode to Bencode</button>
+                    <button class="btn btn-secondary" id="decodeBencode">Decode from Bencode</button>
+                    <button class="btn btn-secondary" id="createTorrent">Create Sample Torrent</button>
                 </div>
                 
                 <div class="progress" id="bencodeProgress">
@@ -429,63 +898,69 @@
         </div>
 
         <!-- Performance Dashboard -->
-        <div class="card">
+        <div class="card" id="performance">
             <div class="codec-section">
-                <h2>📊 Performance Dashboard</h2>
+                <h2><span style="font-size: 1.75rem;">📊</span> Performance Dashboard</h2>
                 <div class="performance-grid">
                     <div class="perf-card">
-                        <h3>🏃‍♂️ Speed Test</h3>
+                        <h3>⚡ Speed Test</h3>
                         <p>Test compression speed with sample data</p>
-                        <button class="btn" onclick="runSpeedTest()">Run Speed Test</button>
-                        <div id="speedTestResults"></div>
+                        <button class="btn" id="runSpeedTest">Run Speed Test</button>
+                        <div id="speedResults"></div>
                     </div>
+                    
                     <div class="perf-card">
-                        <h3>📏 Compression Test</h3>
+                        <h3>📈 Compression Test</h3>
                         <p>Compare compression ratios across codecs</p>
-                        <button class="btn" onclick="runCompressionTest()">Run Compression Test</button>
-                        <div id="compressionTestResults"></div>
+                        <button class="btn" id="runCompressionTest">Run Compression Test</button>
+                        <div id="compressionResults"></div>
                     </div>
+                    
                     <div class="perf-card">
                         <h3>🔍 File Analysis</h3>
                         <p>Analyze file structure and metadata</p>
-                        <button class="btn" onclick="analyzeFile()">Analyze Selected File</button>
+                        <button class="btn" id="analyzeFile">Analyze Selected File</button>
                         <div id="analysisResults"></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Example Files Section -->
+        <!-- Example Files & Demos -->
         <div class="card">
             <div class="codec-section">
-                <h2>📚 Example Files & Demos</h2>
+                <h2><span style="font-size: 1.75rem;">📚</span> Example Files & Demos</h2>
                 <div class="examples-grid">
                     <div class="example-card">
                         <h3>📝 Text Examples</h3>
-                        <button class="btn btn-secondary" onclick="loadExample('text', 'lorem')">Lorem Ipsum</button>
-                        <button class="btn btn-secondary" onclick="loadExample('text', 'code')">Source Code</button>
-                        <button class="btn btn-secondary" onclick="loadExample('text', 'json')">JSON Data</button>
+                        <button class="btn btn-secondary" data-example="text" data-subtype="lorem">Lorem Ipsum</button>
+                        <button class="btn btn-secondary" data-example="text" data-subtype="code">Source Code</button>
+                        <button class="btn btn-secondary" data-example="text" data-subtype="json">JSON Data</button>
                     </div>
+                    
                     <div class="example-card">
                         <h3>📦 Bencode Examples</h3>
-                        <button class="btn btn-secondary" onclick="loadExample('bencode', 'torrent')">Sample Torrent</button>
-                        <button class="btn btn-secondary" onclick="loadExample('bencode', 'config')">Configuration</button>
-                        <button class="btn btn-secondary" onclick="loadExample('bencode', 'metadata')">File Metadata</button>
+                        <button class="btn btn-secondary" data-example="bencode" data-subtype="torrent">Sample Torrent</button>
+                        <button class="btn btn-secondary" data-example="bencode" data-subtype="config">Configuration</button>
+                        <button class="btn btn-secondary" data-example="bencode" data-subtype="metadata">File Metadata</button>
                     </div>
+                    
                     <div class="example-card">
                         <h3>🎯 Quick Demo</h3>
-                        <button class="btn" onclick="runFullDemo()">Run Complete Demo</button>
+                        <button class="btn" id="runFullDemo">Run Complete Demo</button>
                         <p>Demonstrates all codecs with sample files</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="card">
+
+        <!-- File Manager -->
+        <div class="card" id="files">
             <div class="codec-section">
-                <h2>📁 File Manager</h2>
+                <h2><span style="font-size: 1.75rem;">📁</span> File Manager</h2>
                 <div class="controls">
-                    <button class="btn" onclick="loadFiles()">Refresh Files</button>
-                    <button class="btn btn-secondary" onclick="cleanupFiles()">Cleanup Old Files</button>
+                    <button class="btn" id="loadFiles">Refresh Files</button>
+                    <button class="btn btn-secondary" id="cleanupFiles">Cleanup Old Files</button>
                 </div>
                 
                 <div class="file-list" id="fileList">
@@ -495,698 +970,6 @@
         </div>
     </div>
 
-    <script>
-        let selectedFiles = {
-            text: null,
-            image: null,
-            video: null,
-            bencode: null
-        };
-
-        // Drag and drop handlers
-        function handleDragOver(event) {
-            event.preventDefault();
-            event.currentTarget.classList.add('dragover');
-        }
-
-        function handleDragLeave(event) {
-            event.currentTarget.classList.remove('dragover');
-        }
-
-        function handleDrop(event, type) {
-            event.preventDefault();
-            event.currentTarget.classList.remove('dragover');
-            
-            const files = event.dataTransfer.files;
-            if (files.length > 0) {
-                selectedFiles[type] = files[0];
-                updateFileDisplay(type, files[0]);
-            }
-        }
-
-        function handleFileSelect(event, type) {
-            const file = event.target.files[0];
-            if (file) {
-                selectedFiles[type] = file;
-                updateFileDisplay(type, file);
-            }
-        }
-
-        function updateFileDisplay(type, file) {
-            const uploadArea = document.querySelector(`#${type}File`).parentElement.querySelector('.upload-area');
-            uploadArea.innerHTML = `
-                <div class="upload-icon">✅</div>
-                <p><strong>Selected: ${file.name}</strong></p>
-                <p>Size: ${formatBytes(file.size)}</p>
-            `;
-        }
-
-        // API calls
-        async function encodeText() {
-            if (!selectedFiles.text) {
-                showResult('text', 'error', 'Please select a text file first');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('file', selectedFiles.text);
-
-            try {
-                showProgress('text', true);
-                const response = await fetch('/api/text/encode', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-                showProgress('text', false);
-
-                if (result.success) {
-                    showResult('text', 'success', `
-                        <h4>Encoding successful!</h4>
-                        <p>Output file: ${result.outputFile}</p>
-                        <p>Compression ratio: ${result.stats.compressionRatio.toFixed(2)}:1</p>
-                        <p>Space savings: ${result.stats.savings.toFixed(1)}%</p>
-                        <a href="${result.downloadUrl}" class="btn" download>Download TCF File</a>
-                    `);
-                } else {
-                    showResult('text', 'error', result.error);
-                }
-            } catch (error) {
-                showProgress('text', false);
-                showResult('text', 'error', error.message);
-            }
-        }
-
-        async function decodeText() {
-            if (!selectedFiles.text) {
-                showResult('text', 'error', 'Please select a TCF file first');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('file', selectedFiles.text);
-
-            try {
-                showProgress('text', true);
-                const response = await fetch('/api/text/decode', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-                showProgress('text', false);
-
-                if (result.success) {
-                    showResult('text', 'success', `
-                        <h4>Decoding successful!</h4>
-                        <p>Output file: ${result.outputFile}</p>
-                        <p>Content preview: ${result.content}</p>
-                        <a href="${result.downloadUrl}" class="btn" download>Download Text File</a>
-                    `);
-                } else {
-                    showResult('text', 'error', result.error);
-                }
-            } catch (error) {
-                showProgress('text', false);
-                showResult('text', 'error', error.message);
-            }
-        }
-
-        async function encodeImage() {
-            if (!selectedFiles.image) {
-                showResult('image', 'error', 'Please select an image file first');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('file', selectedFiles.image);
-            formData.append('quality', document.getElementById('imageQuality').value);
-
-            try {
-                showProgress('image', true);
-                const response = await fetch('/api/image/encode', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-                showProgress('image', false);
-
-                if (result.success) {
-                    showResult('image', 'success', `
-                        <h4>Encoding successful!</h4>
-                        <p>Output file: ${result.outputFile}</p>
-                        <p>Compression ratio: ${result.stats.compressionRatio.toFixed(2)}:1</p>
-                        <p>Space savings: ${result.stats.savings.toFixed(1)}%</p>
-                        <a href="${result.downloadUrl}" class="btn" download>Download ICF File</a>
-                    `);
-                } else {
-                    showResult('image', 'error', result.error);
-                }
-            } catch (error) {
-                showProgress('image', false);
-                showResult('image', 'error', error.message);
-            }
-        }
-
-        async function decodeImage() {
-            if (!selectedFiles.image) {
-                showResult('image', 'error', 'Please select an ICF file first');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('file', selectedFiles.image);
-
-            try {
-                showProgress('image', true);
-                const response = await fetch('/api/image/decode', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-                showProgress('image', false);
-
-                if (result.success) {
-                    showResult('image', 'success', `
-                        <h4>Decoding successful!</h4>
-                        <p>Output file: ${result.outputFile}</p>
-                        <p>Dimensions: ${result.imageInfo.width}x${result.imageInfo.height}</p>
-                        <p>Channels: ${result.imageInfo.channels}</p>
-                        <a href="${result.downloadUrl}" class="btn" download>Download Image</a>
-                    `);
-                } else {
-                    showResult('image', 'error', result.error);
-                }
-            } catch (error) {
-                showProgress('image', false);
-                showResult('image', 'error', error.message);
-            }
-        }
-
-        async function encodeVideo() {
-            if (!selectedFiles.video) {
-                showResult('video', 'error', 'Please select a video file first');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('file', selectedFiles.video);
-            formData.append('quality', document.getElementById('videoQuality').value);
-            formData.append('bitrate', document.getElementById('videoBitrate').value);
-            formData.append('gopSize', document.getElementById('videoGop').value);
-
-            try {
-                showProgress('video', true);
-                const response = await fetch('/api/video/encode', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-                showProgress('video', false);
-
-                if (result.success) {
-                    showResult('video', 'success', `
-                        <h4>Encoding successful!</h4>
-                        <p>Output file: ${result.outputFile}</p>
-                        <p>Compression ratio: ${result.stats.compressionRatio.toFixed(2)}:1</p>
-                        <p>Space savings: ${result.stats.savings.toFixed(1)}%</p>
-                        <a href="${result.downloadUrl}" class="btn" download>Download VCF File</a>
-                    `);
-                } else {
-                    showResult('video', 'error', result.error);
-                }
-            } catch (error) {
-                showProgress('video', false);
-                showResult('video', 'error', error.message);
-            }
-        }
-
-        async function decodeVideo() {
-            if (!selectedFiles.video) {
-                showResult('video', 'error', 'Please select a VCF file first');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('file', selectedFiles.video);
-
-            try {
-                showProgress('video', true);
-                const response = await fetch('/api/video/decode', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-                showProgress('video', false);
-
-                if (result.success) {
-                    showResult('video', 'success', `
-                        <h4>Decoding successful!</h4>
-                        <p>Output file: ${result.outputFile}</p>
-                        <a href="${result.downloadUrl}" class="btn" download>Download Video</a>
-                    `);
-                } else {
-                    showResult('video', 'error', result.error);
-                }
-            } catch (error) {
-                showProgress('video', false);
-                showResult('video', 'error', error.message);
-            }
-        }
-
-        async function loadFiles() {
-            try {
-                const response = await fetch('/api/files');
-                const files = await response.json();
-                
-                const fileList = document.getElementById('fileList');
-                fileList.innerHTML = '';
-                
-                if (files.length === 0) {
-                    fileList.innerHTML = '<p>No files found. Upload and process some files first.</p>';
-                    return;
-                }
-                
-                files.forEach(file => {
-                    const fileItem = document.createElement('div');
-                    fileItem.className = 'file-item';
-                    fileItem.innerHTML = `
-                        <h4>${file.filename}</h4>
-                        <div class="file-stats">Type: ${file.type}</div>
-                        <div class="file-stats">Size: ${formatBytes(file.size)}</div>
-                        <div class="file-stats">Created: ${new Date(file.created).toLocaleDateString()}</div>
-                        <a href="${file.downloadUrl}" class="btn download-btn" download>Download</a>
-                    `;
-                    fileList.appendChild(fileItem);
-                });
-            } catch (error) {
-                console.error('Error loading files:', error);
-            }
-        }
-
-        async function cleanupFiles() {
-            try {
-                const response = await fetch('/api/cleanup', {
-                    method: 'DELETE'
-                });
-                const result = await response.json();
-                
-                if (result.success) {
-                    alert(`${result.message}`);
-                    loadFiles(); // Refresh the file list
-                }
-            } catch (error) {
-                alert('Error cleaning up files: ' + error.message);
-            }
-        }
-
-        function showProgress(type, show) {
-            const progress = document.getElementById(`${type}Progress`);
-            progress.style.display = show ? 'block' : 'none';
-            
-            if (show) {
-                const bar = document.getElementById(`${type}ProgressBar`);
-                bar.style.width = '100%';
-            }
-        }
-
-        function showResult(type, status, message) {
-            const result = document.getElementById(`${type}Result`);
-            result.className = `result ${status}`;
-            result.innerHTML = message;
-            result.style.display = 'block';
-        }
-
-        function formatBytes(bytes) {
-            if (bytes === 0) return '0 B';
-            const k = 1024;
-            const sizes = ['B', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-
-        // Load files on page load
-        document.addEventListener('DOMContentLoaded', loadFiles);
-
-        // Bencode codec functions
-        async function encodeBencode() {
-            if (!selectedFiles.bencode) {
-                showResult('bencode', 'error', 'Please select a JSON file first');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('file', selectedFiles.bencode);
-
-            try {
-                showProgress('bencode', true);
-                const response = await fetch('/api/bencode/encode', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-                showProgress('bencode', false);
-
-                if (result.success) {
-                    showResult('bencode', 'success', `
-                        <h4>Encoding successful!</h4>
-                        <p>Output file: ${result.outputFile}</p>
-                        <p>Original size: ${formatBytes(result.stats.original_size)}</p>
-                        <p>Encoded size: ${formatBytes(result.stats.encoded_size)}</p>
-                        <p>Efficiency: ${(result.stats.compression_ratio * 100).toFixed(1)}%</p>
-                        <a href="${result.downloadUrl}" class="btn" download>Download Bencode File</a>
-                    `);
-                } else {
-                    showResult('bencode', 'error', result.error);
-                }
-            } catch (error) {
-                showProgress('bencode', false);
-                showResult('bencode', 'error', error.message);
-            }
-        }
-
-        async function decodeBencode() {
-            if (!selectedFiles.bencode) {
-                showResult('bencode', 'error', 'Please select a Bencode file first');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('file', selectedFiles.bencode);
-
-            try {
-                showProgress('bencode', true);
-                const response = await fetch('/api/bencode/decode', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const result = await response.json();
-                showProgress('bencode', false);
-
-                if (result.success) {
-                    showResult('bencode', 'success', `
-                        <h4>Decoding successful!</h4>
-                        <p>Output file: ${result.outputFile}</p>
-                        <p>Content type: ${result.contentType}</p>
-                        <a href="${result.downloadUrl}" class="btn" download>Download JSON File</a>
-                    `);
-                } else {
-                    showResult('bencode', 'error', result.error);
-                }
-            } catch (error) {
-                showProgress('bencode', false);
-                showResult('bencode', 'error', error.message);
-            }
-        }
-
-        async function createTorrent() {
-            try {
-                const response = await fetch('/api/bencode/create-torrent', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        name: 'example-file.mp4',
-                        announce: 'http://tracker.example.com/announce'
-                    })
-                });
-
-                const result = await response.json();
-                if (result.success) {
-                    showResult('bencode', 'success', `
-                        <h4>Sample torrent created!</h4>
-                        <p>File: ${result.outputFile}</p>
-                        <p>Tracker: ${result.announce}</p>
-                        <a href="${result.downloadUrl}" class="btn" download>Download Torrent</a>
-                    `);
-                }
-            } catch (error) {
-                showResult('bencode', 'error', error.message);
-            }
-        }
-
-        // Performance testing functions
-        async function runSpeedTest() {
-            const testData = "Hello, World! ".repeat(1000);
-            const results = document.getElementById('speedTestResults');
-            results.innerHTML = '<div class="badge badge-info">Running tests...</div>';
-
-            try {
-                const testResults = [];
-                
-                // Test TCF encoding speed
-                const tcfStart = performance.now();
-                await fetch('/api/text/encode', {
-                    method: 'POST',
-                    body: (() => {
-                        const formData = new FormData();
-                        formData.append('file', new Blob([testData], { type: 'text/plain' }), 'test.txt');
-                        return formData;
-                    })()
-                });
-                const tcfTime = performance.now() - tcfStart;
-                testResults.push({ codec: 'TCF', time: tcfTime, speed: (testData.length / tcfTime * 1000).toFixed(0) });
-
-                // Display results
-                let html = '<div class="stats-display">';
-                testResults.forEach(result => {
-                    html += `<div class="stats-row">
-                        <span><strong>${result.codec}:</strong></span>
-                        <span>${result.time.toFixed(2)}ms (${result.speed} bytes/sec)</span>
-                    </div>`;
-                });
-                html += '</div>';
-                results.innerHTML = html;
-
-            } catch (error) {
-                results.innerHTML = `<div class="badge badge-danger">Error: ${error.message}</div>`;
-            }
-        }
-
-        async function runCompressionTest() {
-            const testText = "The quick brown fox jumps over the lazy dog. ".repeat(100);
-            const results = document.getElementById('compressionTestResults');
-            results.innerHTML = '<div class="badge badge-info">Running compression tests...</div>';
-
-            try {
-                // Test different data types
-                const tests = [
-                    { name: 'Repetitive Text', data: 'A'.repeat(1000) },
-                    { name: 'Random Text', data: testText },
-                    { name: 'JSON Data', data: JSON.stringify({users: [{name: 'John', age: 30}, {name: 'Jane', age: 25}]}).repeat(50) }
-                ];
-
-                let html = '<div class="stats-display">';
-                for (const test of tests) {
-                    // Test TCF compression
-                    const formData = new FormData();
-                    formData.append('file', new Blob([test.data], { type: 'text/plain' }), 'test.txt');
-                    
-                    const response = await fetch('/api/text/encode', {
-                        method: 'POST',
-                        body: formData
-                    });
-                    
-                    if (response.ok) {
-                        const result = await response.json();
-                        const ratio = result.stats.compressionRatio;
-                        const savings = result.stats.savings;
-                        
-                        html += `<div class="stats-row">
-                            <span><strong>${test.name}:</strong></span>
-                            <span>${ratio.toFixed(2)}:1 ratio, ${savings.toFixed(1)}% savings</span>
-                        </div>`;
-                    }
-                }
-                html += '</div>';
-                results.innerHTML = html;
-
-            } catch (error) {
-                results.innerHTML = `<div class="badge badge-danger">Error: ${error.message}</div>`;
-            }
-        }
-
-        async function analyzeFile() {
-            const results = document.getElementById('analysisResults');
-            
-            // Find the first selected file
-            let fileToAnalyze = null;
-            let fileType = '';
-            for (const [type, file] of Object.entries(selectedFiles)) {
-                if (file) {
-                    fileToAnalyze = file;
-                    fileType = type;
-                    break;
-                }
-            }
-            
-            if (!fileToAnalyze) {
-                results.innerHTML = '<div class="badge badge-warning">Please select a file first</div>';
-                return;
-            }
-
-            let html = '<div class="stats-display">';
-            html += `<div class="stats-row"><span><strong>File Name:</strong></span><span>${fileToAnalyze.name}</span></div>`;
-            html += `<div class="stats-row"><span><strong>File Size:</strong></span><span>${formatBytes(fileToAnalyze.size)}</span></div>`;
-            html += `<div class="stats-row"><span><strong>File Type:</strong></span><span>${fileToAnalyze.type || 'Unknown'}</span></div>`;
-            html += `<div class="stats-row"><span><strong>Last Modified:</strong></span><span>${new Date(fileToAnalyze.lastModified).toLocaleString()}</span></div>`;
-            html += `<div class="stats-row"><span><strong>Codec Category:</strong></span><span>${fileType.toUpperCase()}</span></div>`;
-            
-            // File type specific analysis
-            if (fileType === 'text' || fileToAnalyze.type.startsWith('text/')) {
-                try {
-                    const text = await fileToAnalyze.text();
-                    html += `<div class="stats-row"><span><strong>Character Count:</strong></span><span>${text.length.toLocaleString()}</span></div>`;
-                    html += `<div class="stats-row"><span><strong>Line Count:</strong></span><span>${text.split('\n').length.toLocaleString()}</span></div>`;
-                    html += `<div class="stats-row"><span><strong>Word Count:</strong></span><span>${text.split(/\s+/).length.toLocaleString()}</span></div>`;
-                } catch (e) {
-                    html += `<div class="stats-row"><span><strong>Content:</strong></span><span>Binary file</span></div>`;
-                }
-            }
-            
-            html += '</div>';
-            results.innerHTML = html;
-        }
-
-        // Example file loading
-        async function loadExample(codecType, exampleType) {
-            let content = '';
-            let filename = '';
-            
-            switch (exampleType) {
-                case 'lorem':
-                    content = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '.repeat(100);
-                    filename = 'lorem.txt';
-                    break;
-                case 'code':
-                    content = `function fibonacci(n) {
-    if (n <= 1) return n;
-    return fibonacci(n - 1) + fibonacci(n - 2);
-}
-
-// Example usage
-for (let i = 0; i < 10; i++) {
-    console.log(\`fib(\${i}) = \${fibonacci(i)}\`);
-}`.repeat(20);
-                    filename = 'fibonacci.js';
-                    break;
-                case 'json':
-                    content = JSON.stringify({
-                        users: [
-                            { id: 1, name: 'John Doe', email: 'john@example.com', active: true },
-                            { id: 2, name: 'Jane Smith', email: 'jane@example.com', active: false }
-                        ],
-                        metadata: { version: '1.0', created: new Date().toISOString() }
-                    }, null, 2).repeat(50);
-                    filename = 'users.json';
-                    break;
-                case 'torrent':
-                    content = JSON.stringify({
-                        announce: 'http://tracker.example.com/announce',
-                        info: {
-                            name: 'example-movie.mkv',
-                            length: 1073741824,
-                            'piece length': 262144,
-                            pieces: 'dummy_hash_data'
-                        },
-                        'creation date': Math.floor(Date.now() / 1000),
-                        'created by': 'Codec CDN Platform'
-                    }, null, 2);
-                    filename = 'example.torrent.json';
-                    break;
-                case 'config':
-                    content = JSON.stringify({
-                        server: {
-                            host: 'localhost',
-                            port: 8080,
-                            ssl: false
-                        },
-                        database: {
-                            type: 'postgresql',
-                            host: 'db.example.com',
-                            port: 5432,
-                            name: 'myapp'
-                        },
-                        features: ['compression', 'caching', 'monitoring']
-                    }, null, 2);
-                    filename = 'config.json';
-                    break;
-                case 'metadata':
-                    content = JSON.stringify({
-                        file: {
-                            name: 'document.pdf',
-                            size: 2048576,
-                            type: 'application/pdf',
-                            checksum: 'sha256:abc123...',
-                            created: new Date().toISOString()
-                        },
-                        processing: {
-                            status: 'completed',
-                            duration: 1.25,
-                            operations: ['scan', 'ocr', 'index']
-                        }
-                    }, null, 2);
-                    filename = 'metadata.json';
-                    break;
-            }
-            
-            if (content) {
-                const file = new File([content], filename, { type: 'text/plain' });
-                selectedFiles[codecType] = file;
-                updateFileDisplay(codecType, file);
-            }
-        }
-
-        async function runFullDemo() {
-            const demoResults = document.createElement('div');
-            demoResults.className = 'result success';
-            demoResults.innerHTML = '<h4>🎯 Running Full Demo...</h4><div id="demoProgress"></div>';
-            document.body.appendChild(demoResults);
-            
-            const progressDiv = document.getElementById('demoProgress');
-            
-            try {
-                // Load example text
-                await loadExample('text', 'lorem');
-                progressDiv.innerHTML += '<p>✅ Loaded text example</p>';
-                
-                // Encode text
-                await encodeText();
-                progressDiv.innerHTML += '<p>✅ Encoded text to TCF</p>';
-                
-                // Load example JSON for Bencode
-                await loadExample('bencode', 'torrent');
-                progressDiv.innerHTML += '<p>✅ Loaded Bencode example</p>';
-                
-                // Encode to Bencode
-                await encodeBencode();
-                progressDiv.innerHTML += '<p>✅ Encoded to Bencode</p>';
-                
-                // Run performance tests
-                await runSpeedTest();
-                progressDiv.innerHTML += '<p>✅ Completed speed tests</p>';
-                
-                await runCompressionTest();
-                progressDiv.innerHTML += '<p>✅ Completed compression tests</p>';
-                
-                progressDiv.innerHTML += '<p><strong>🎉 Demo completed! Check the results above.</strong></p>';
-                
-                setTimeout(() => {
-                    document.body.removeChild(demoResults);
-                }, 10000);
-                
-            } catch (error) {
-                progressDiv.innerHTML += `<p>❌ Error: ${error.message}</p>`;
-            }
-        }
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
