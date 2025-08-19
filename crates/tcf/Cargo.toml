@@ -1,0 +1,11 @@
+[package]
+name = "codec-tcf"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+codec-common = { path = "../common" }
+codec-entropy = { path = "../entropy" }
+anyhow = "1.0"
+unicode-normalization = "0.1"
+crc32fast = "1.3"

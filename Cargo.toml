@@ -1,0 +1,35 @@
+[package]
+name = "codec-cdn"
+version = "0.1.0"
+edition = "2021"
+authors = ["Codec CDN Team"]
+description = "Custom codec and streaming platform with TCF, ICF, and VCF formats"
+license = "MIT"
+
+[workspace]
+members = [
+    "crates/tcf",
+    "crates/entropy", 
+    "crates/common",
+    "crates/cli"
+]
+
+[dependencies]
+codec-common = { path = "crates/common" }
+codec-entropy = { path = "crates/entropy" }
+codec-tcf = { path = "crates/tcf" }
+codec-cli = { path = "crates/cli" }
+clap = { version = "4.0", features = ["derive"] }
+anyhow = "1.0"
+tokio = { version = "1.0", features = ["full"] }
+
+[[bin]]
+name = "tcf-cli"
+path = "src/bin/tcf_cli.rs"
+
+[dev-dependencies]
+criterion = "0.5"
+
+[[bench]]
+name = "tcf_benchmark"
+harness = false
